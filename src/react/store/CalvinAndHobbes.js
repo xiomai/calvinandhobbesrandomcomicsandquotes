@@ -8,8 +8,9 @@ class CalvinAndHobbes extends EventEmitter {
       super()
       this.imgSrc = {
 			url: [],
+			quote: '',
 			error: false,
-			quote: ''
+			fetching: true
 		}
 		this.quotes = [
 		"It’s a magical world, Hobbes, ol’ buddy... Let’s go exploring!",
@@ -36,6 +37,7 @@ class CalvinAndHobbes extends EventEmitter {
 		"Things are never quite as scary when you’ve got a best friend.",
 		"There’s never enough time to do all the nothing you want."
 		]
+		this.lastQuote = ''
   
    }
 
@@ -46,23 +48,34 @@ class CalvinAndHobbes extends EventEmitter {
 	getQuote() {
 		const quotes = this.quotes
 		const quote = quotes[Math.floor(Math.random() * quotes.length)]
-		
-		return quote
+		if (this.fetching){
+			this.lastQuote = quote
+			return quote
+		} else {
+			return this.lastQuote
+		}
+	}
+
+	getFetchStatus() {
+		return this.fetching;
 	}
 
    handleActions(action) {
       switch (action.type) {
          case "FETCHING_IMAGE_SUCCESS": {
             this.imgSrc.url = action.payload
+				this.fetching = false
             this.emit("change")
             break
          }
          case "FETCHING_IMAGE_ERROR": {
 				this.imgSrc.error = action.payload
+				this.fetching = false
             this.emit("change")        
             break
          }
          case "FETCHING_IMAGE": {
+				this.fetching = true
             this.emit("change")        
             break
          }
