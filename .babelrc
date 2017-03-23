@@ -1,0 +1,17 @@
+{
+    "presets": [
+        [
+            "es2015", 
+                { 
+                    "modules": false // for tree shaking purposes, do not transform es6 modules
+                }
+        ],
+        "stage-0", 
+        "react"
+    ],
+    "plugins" : [
+        "react-html-attrs",
+        "transform-class-properties",
+        "transform-decorators-legacy"
+    ]
+}
