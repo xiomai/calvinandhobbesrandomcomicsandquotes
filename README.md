@@ -1,6 +1,7 @@
 # Calvin and Hobbes random comics and quotes
 
 Built with React+Webpack and electron if wanted.
+Comic image are scraped via Yahoo Query Language (YQL) with axios as the medium.
 
 
 ## Deployment
