@@ -17,3 +17,8 @@ or with Yarn
 ```
 yarn install
 ```
+Build the source with
+```
+npm run build
+```
+`./build` folder will be the main folder of the page.
