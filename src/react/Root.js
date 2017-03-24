@@ -3,6 +3,7 @@ import React from 'react'
 
 import * as ComicActions from './actions/Action'
 import CalvinAndHobbes from './store/CalvinAndHobbes'
+import FetchError from './components/FetchError'
 import Footer from './components/Footer'
 import Loading from './components/Loading'
 import Random from './components/Random'
@@ -14,7 +15,8 @@ export default class Root extends React.Component {
 		this.state = {
 			imgSrc: CalvinAndHobbes.getImgSrc(),
       quote: CalvinAndHobbes.getQuote(),
-			fetching: CalvinAndHobbes.getFetchStatus()
+			fetching: CalvinAndHobbes.getFetchStatus(),
+			fetchError: CalvinAndHobbes.getFetchError()
 		}
 	}
 
@@ -30,7 +32,8 @@ export default class Root extends React.Component {
 		this.setState({
 			imgSrc: CalvinAndHobbes.getImgSrc(),
       quote: CalvinAndHobbes.getQuote(),
-			fetching: CalvinAndHobbes.getFetchStatus()
+			fetching: CalvinAndHobbes.getFetchStatus(),
+			fetchError: CalvinAndHobbes.getFetchError()
 		})
 	}
   
@@ -38,6 +41,10 @@ export default class Root extends React.Component {
 		const isFetching = this.state.fetching
 		const imgUrlState = this.state.imgSrc.url
 		const imgStyle = {'maxWidth': '100%'}
+
+		if (this.state.fetchError) {
+			return <FetchError />
+		}
     
 		return (isFetching) ? (
 			<Loading />

@@ -48,7 +48,7 @@ class CalvinAndHobbes extends EventEmitter {
 	getQuote() {
 		const quotes = this.quotes
 		const quote = quotes[Math.floor(Math.random() * quotes.length)]
-		if (this.fetching){
+		if (this.imgSrc.fetching){
 			this.lastQuote = quote
 			return quote
 		} else {
@@ -57,25 +57,31 @@ class CalvinAndHobbes extends EventEmitter {
 	}
 
 	getFetchStatus() {
-		return this.fetching;
+		return this.imgSrc.fetching;
+	}
+
+	getFetchError() {
+		return this.imgSrc.error;
 	}
 
    handleActions(action) {
       switch (action.type) {
          case "FETCHING_IMAGE_SUCCESS": {
             this.imgSrc.url = action.payload
-				this.fetching = false
+				this.imgSrc.error = false
+				this.imgSrc.fetching = false
             this.emit("change")
             break
          }
          case "FETCHING_IMAGE_ERROR": {
-				this.imgSrc.error = action.payload
-				this.fetching = false
+				this.imgSrc.error = true
+				this.imgSrc.fetching = false
             this.emit("change")        
             break
          }
          case "FETCHING_IMAGE": {
-				this.fetching = true
+				this.imgSrc.error = false
+				this.imgSrc.fetching = true
             this.emit("change")        
             break
          }
