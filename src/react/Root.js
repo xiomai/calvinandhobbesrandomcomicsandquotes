@@ -13,9 +13,7 @@ export default class Root extends React.Component {
 		this.getComics = this.getComics.bind(this)
 		this.state = {
 			imgSrc: CalvinAndHobbes.getImgSrc(),
-      quote: CalvinAndHobbes.getQuote(),
-			fetching: CalvinAndHobbes.getFetchStatus(),
-			fetchError: CalvinAndHobbes.getFetchError()
+      quote: CalvinAndHobbes.getQuote()
 		}
 	}
 
@@ -30,18 +28,17 @@ export default class Root extends React.Component {
 	getComics() {
 		this.setState({
 			imgSrc: CalvinAndHobbes.getImgSrc(),
-      quote: CalvinAndHobbes.getQuote(),
-			fetching: CalvinAndHobbes.getFetchStatus(),
-			fetchError: CalvinAndHobbes.getFetchError()
+      quote: CalvinAndHobbes.getQuote()
 		})
 	}
   
   renderImage() {
-		const isFetching = this.state.fetching
+		const isFetchError = this.state.imgSrc.error
+		const isFetching = this.state.imgSrc.fetching
 		const imgUrlState = this.state.imgSrc.url
 		const imgStyle = {'maxWidth': '100%'}
 
-		if (this.state.fetchError) 
+		if (isFetchError) 
 			return <FetchError />
     
 		return (isFetching) ? (
@@ -58,9 +55,10 @@ export default class Root extends React.Component {
 	}
 
   render() {
+		const isFetching = this.state.imgSrc.fetching
     const comicImage = this.renderImage()
     const quote = this.state.quote
-		const randomComponent = (!this.state.fetching) ? <Random random={this.random.bind(this)} /> : ''
+		const randomComponent = (!isFetching) ? <Random random={this.random.bind(this)} /> : ''
 
     return (
       <div class="jumbotron">

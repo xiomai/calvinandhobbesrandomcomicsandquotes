@@ -8,7 +8,6 @@ class CalvinAndHobbes extends EventEmitter {
       super()
       this.imgSrc = {
 			url: [],
-			quote: '',
 			error: false,
 			fetching: true
 		}
@@ -54,14 +53,6 @@ class CalvinAndHobbes extends EventEmitter {
 		} else {
 			return this.lastQuote
 		}
-	}
-
-	getFetchStatus() {
-		return this.imgSrc.fetching;
-	}
-
-	getFetchError() {
-		return this.imgSrc.error;
 	}
 
    handleActions(action) {
