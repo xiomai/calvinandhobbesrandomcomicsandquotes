@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React from 'react'
 
 import * as ComicActions from './actions/Action'
@@ -42,9 +41,8 @@ export default class Root extends React.Component {
 		const imgUrlState = this.state.imgSrc.url
 		const imgStyle = {'maxWidth': '100%'}
 
-		if (this.state.fetchError) {
+		if (this.state.fetchError) 
 			return <FetchError />
-		}
     
 		return (isFetching) ? (
 			<Loading />
