@@ -2,6 +2,7 @@
 
 Built with React+Webpack and electron if wanted.
 Comic image are scraped via Yahoo Query Language (YQL) with axios as the medium.
+- [Example](http://calvinandhobbes.alisongaleon.com/) - Calvin and Hobbes Random Comics and Quotes
 
 
 ## Deployment
