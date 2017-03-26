@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 
-export default class FetchError extends React.Component {
+export default class FetchError extends PureComponent {
 
 	render() {
 		return (

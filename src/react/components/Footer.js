@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 
-export default class Footer extends React.Component {
+export default class Footer extends PureComponent {
 
 	render() {
 		const loading = <span class="glyphicon glyphicon-refresh spinning"></span>

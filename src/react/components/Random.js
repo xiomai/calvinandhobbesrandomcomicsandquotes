@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 
-export default class Random extends React.Component {
+export default class Random extends PureComponent {
 
 	render() {
 		return (
