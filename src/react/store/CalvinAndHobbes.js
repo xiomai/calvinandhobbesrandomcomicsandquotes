@@ -4,14 +4,17 @@ import dispatcher from "../dispatcher";
 
 class CalvinAndHobbes extends EventEmitter {
 
-   constructor() {
-      super()
-      this.imgSrc = {
-			url: [],
-			error: false,
-			fetching: true
-		}
-		this.quotes = [
+	constructor() {
+		super()
+		this.imgSrc = {
+		url: [],
+		error: false,
+		fetching: true
+	}
+	/**
+	 * Random quotes from https://github.com/Siilwyn/calvin-and-hobbes-quotes.
+	 */
+	this.quotes = [
 		"It’s a magical world, Hobbes, ol’ buddy... Let’s go exploring!",
 		"Sometimes I think the surest sign that intelligent life exists elsewhere in the universe is that none of it has tried to contact us.",
 		"People think it must be fun to be a super genius, but they don’t realize how hard it is to put up with all the idiots in the world.",
@@ -36,13 +39,14 @@ class CalvinAndHobbes extends EventEmitter {
 		"Things are never quite as scary when you’ve got a best friend.",
 		"There’s never enough time to do all the nothing you want."
 		]
-		this.lastQuote = ''
-  
-   }
 
-   getImgSrc() {
-      return this.imgSrc;
-   }
+	this.lastQuote = ''
+  
+	}
+
+	getImgSrc() {
+		return this.imgSrc;
+	}
 
 	getQuote() {
 		const quotes = this.quotes
@@ -56,27 +60,27 @@ class CalvinAndHobbes extends EventEmitter {
 	}
 
    handleActions(action) {
-      switch (action.type) {
-         case "FETCHING_IMAGE_SUCCESS": {
-            this.imgSrc.url = action.payload
+		switch (action.type) {
+			case "FETCHING_IMAGE_SUCCESS": {
+				this.imgSrc.url = action.payload
 				this.imgSrc.error = false
 				this.imgSrc.fetching = false
-            this.emit("change")
-            break
-         }
-         case "FETCHING_IMAGE_ERROR": {
+				this.emit("change")
+				break
+			}
+				case "FETCHING_IMAGE_ERROR": {
 				this.imgSrc.error = true
 				this.imgSrc.fetching = false
-            this.emit("change")        
-            break
-         }
-         case "FETCHING_IMAGE": {
+				this.emit("change")        
+				break
+			}
+			case "FETCHING_IMAGE": {
 				this.imgSrc.error = false
 				this.imgSrc.fetching = true
-            this.emit("change")        
-            break
-         }
-      }
+				this.emit("change")        
+				break
+			}
+		}
    }
    
 }

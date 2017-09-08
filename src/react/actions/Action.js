@@ -9,6 +9,12 @@ export function fetchComics() {
 
 	axios.get('/curler.php')
 		.then((response) => {
+
+			/**
+			 * Use Cheeriojs to parse the html passed from php curling it.
+			 * Traverse on class `.img-fluid.item-comic-image` which
+			 * contains an img element, then get the src link to dispatch it.
+			 */
 			const curledHtml = cheerio.load(response.data)
 			const stripUrl = curledHtml('.img-fluid.item-comic-image');
 			const imgSrc = stripUrl.find('img').attr('src')
