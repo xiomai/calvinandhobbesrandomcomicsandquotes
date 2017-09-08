@@ -1,7 +1,4 @@
-global.jQuery = require('jquery');
 
-var cosmo =  require("./styles/themes/bootswatch/sandstone/bootstrap.css")
-var bootstrapjs = require('./styles/themes/bootswatch/bootstrap.min.js')
 var sass = require('./styles/sass/style.scss')
 
 import * as ComicActions from './react/actions/Action'

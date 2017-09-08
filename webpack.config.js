@@ -1,5 +1,7 @@
 var path = require('path');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 var webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HTMLWebpackPlugin = require('html-webpack-plugin');
 
@@ -18,12 +20,19 @@ const entry = PRODUCTION
 
 const plugins = PRODUCTION
 	? 	[
+			new webpack.DefinePlugin({
+				'process.env': {
+					NODE_ENV: JSON.stringify('production')
+				}
+			}),
 			new webpack.optimize.UglifyJsPlugin(),
 			new webpack.IgnorePlugin(/\/iconv-loader$/),
 			new ExtractTextPlugin('style-[contenthash:10].css'),
 			new HTMLWebpackPlugin({
 				template: './src/template/index.html'
-			})
+			}),
+			new CopyWebpackPlugin([{ from: './app/curler.php'}]),
+			new BundleAnalyzerPlugin(),
 		]
 	: 	[
 			new webpack.HotModuleReplacementPlugin(),
@@ -50,13 +59,9 @@ const cssLoader = PRODUCTION
 	: 	['style-loader', 'css-loader?localIdentName=' + cssIdentifier, 'sass-loader?sourceMap'];
 
 module.exports = {
-	devtool: 'source-map',
+	devtool: PRODUCTION ? 'nosources-source-map' : 'cheap-module-eval-source-map',
 	entry: entry,
 	plugins: plugins,
-	// externals: {
-	// 	jquery: 'jQuery', //jquery is external and available at the global variable jQuery
-	// 	bootstrap: 'bootstrap'
-	// },
 	module: {
 		loaders: [{
 			test: /\.js$/,
@@ -79,8 +84,7 @@ module.exports = {
 		}]
 	},
 	output: {
-		path: PRODUCTION ? path.join(__dirname, 'dist') : path.join(__dirname, 'dev'),
-		// publicPath: '/',
+		path: path.join(__dirname, 'dist'),
 		filename: PRODUCTION ? 'bundle.[hash:12].min.js' : 'bundle.js'
 	}
 };
